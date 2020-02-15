@@ -6,6 +6,7 @@ const Demand=require('../models/demand')
 const dates=require('../dates')
 const bcrypt=require('bcrypt')
 const jwt=require('jsonwebtoken')
+const isAuthenticated=require('../middleware/checkAuth')
 
 router.post('/signup',(req,res,next)=>{
     User.find({email:req.body.email})
@@ -81,8 +82,9 @@ router.post('/login',(req,res,next)=>{
     })
 })
 
-router.post('/createDemand',dates.date,(req,res,next)=>{
-    const drone = new Drone({
+router.post('/createDemand',dates.date,isAuthenticated,(req,res,next)=>{
+    
+    /**const drone = new Drone({
         reference:req.body.ref,
         distance:req.body.dronedistance
     })
@@ -112,7 +114,7 @@ router.post('/createDemand',dates.date,(req,res,next)=>{
     })
     .catch(err=>{
         res.status(500).json({error:err})
-    })
+    })*/
 })
 
 module.exports=router
