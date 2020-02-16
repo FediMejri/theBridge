@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 
 const userRoutes = require('./api/routes/users')
 const droneRoutes=require('./api/routes/drones')
+const demandRoutes=require('./api/routes/demands')
 
 mongoose.connect('mongodb+srv://mohamedfedi:abcdefg1234!@cluster0-5q2tv.mongodb.net/thebridge1?retryWrites=true&w=majority', 
 {
@@ -33,6 +34,7 @@ app.use((req,res, next)=>{
 
 app.use('/users',userRoutes)
 app.use('/drones',droneRoutes)
+app.use('/demands',demandRoutes)
 
 app.use((req,res,next) => {
     const error=new Error('Not found')

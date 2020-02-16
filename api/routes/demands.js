@@ -1,19 +1,21 @@
 const express=require('express')
 const router=express.Router()
-const Drone=require('../models/drone')
+const Demand=require('../models/demand')
 
 router.get('/',(req,res,next)=>{
-    Drone.find()
-    .select('reference distance')
+    Demand.find()
+    .select('distance date duration user')
     .exec()
     .then(docs=>{
         const response={
-            count: docs.length,
-            drones:docs.map(doc=>{
+            count:docs.length,
+            demands:docs.map(doc=>{
                 return{
                     id:doc._id,
-                    reference:doc.reference,
-                    distance:doc.distance
+                    distance:doc.distance,
+                    date:doc.date,
+                    duration:doc.duration,
+                    user:doc.user
                 }
             })
         }

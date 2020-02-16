@@ -83,8 +83,9 @@ router.post('/login',(req,res,next)=>{
 })
 
 router.post('/createDemand',dates.date,isAuthenticated,(req,res,next)=>{
-    
-    /**const drone = new Drone({
+    const decoded=jwt.decode(req.body.token)
+    const userID=decoded.userId
+    const drone = new Drone({
         reference:req.body.ref,
         distance:req.body.dronedistance
     })
@@ -94,7 +95,8 @@ router.post('/createDemand',dates.date,isAuthenticated,(req,res,next)=>{
         const demand=new Demand({
             distance:req.body.demanddistance,
             date:req.requestTime,
-            duration:req.body.duration
+            duration:req.body.duration,
+            user:userID
         })
         demand.save()
         .then(resultat=>{
@@ -114,7 +116,7 @@ router.post('/createDemand',dates.date,isAuthenticated,(req,res,next)=>{
     })
     .catch(err=>{
         res.status(500).json({error:err})
-    })*/
+    })
 })
 
 module.exports=router
